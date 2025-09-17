@@ -95,19 +95,6 @@ function showPopup(){document.getElementById("popup").style.display="flex";}
 function hidePopup(){document.getElementById("popup").style.display="none";}
 function startNextPuzzle(){hidePopup();generateValidGrid();}
 
-// Play retro goal sound
-function playGoalSound(){
-  const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-  const osc = audioCtx.createOscillator();
-  const gain = audioCtx.createGain();
-  osc.connect(gain); gain.connect(audioCtx.destination);
-  osc.type = "square";
-  osc.frequency.value = 600; // frequency in Hz
-  gain.gain.setValueAtTime(0.2,audioCtx.currentTime); // volume
-  osc.start();
-  osc.stop(audioCtx.currentTime+0.3); // 300ms beep
-}
-
 // Player movement and ESC key
 document.addEventListener("keydown",(e)=>{
   if(e.key==="Escape"){backToMenu(); return;}
@@ -126,10 +113,7 @@ document.addEventListener("keydown",(e)=>{
       playerCell.classList.remove("player");
       playerCell=nextCell;
       playerCell.classList.add("player");
-      if(playerCell===goalCell){
-        playGoalSound(); // play sound when puzzle solved
-        setTimeout(showPopup,50);
-      }
+      if(playerCell===goalCell) setTimeout(showPopup,50);
     }
   }
 });
