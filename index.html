@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Path Finder Puzzle</title>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- Main Menu -->
+<div id="menu">
+  <h1>PATH FINDER</h1>
+  <button onclick="openLevelModal()">PLAY</button>
+  <label class="switch">
+    <input type="checkbox" id="modeToggle" onchange="toggleMode()">
+    <span class="slider"></span>
+  </label>
+</div>
+
+<!-- Level Modal -->
+<div id="levelModal">
+  <button onclick="startGame(6)">EASY 6x6</button>
+  <button onclick="startGame(9)">MEDIUM 9x9</button>
+  <button onclick="startGame(12)">HARD 12x12</button>
+  <button onclick="closeLevelModal()">CANCEL</button>
+</div>
+
+<!-- Game Container -->
+<div id="game">
+  <div id="grid" class="grid"></div>
+</div>
+
+<!-- Popup -->
+<div id="popup">
+  <div id="popup-content">
+    <h2><span class="material-symbols-outlined">check_circle</span> Puzzle Complete</h2>
+    <button onclick="startNextPuzzle()"><span class="material-symbols-outlined">arrow_forward</span> NEXT</button>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
