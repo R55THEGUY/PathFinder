@@ -178,4 +178,55 @@
     transform: translateX(30px);
     content: 'dark_mode';
   }
-  
+
+
+/* Hide controls everywhere by default */
+#controls {
+  display: none !important;
+}
+
+/* Show controls only on small screens (phones & small tablets) */
+@media only screen and (max-width: 768px) {
+  #controls {
+    display: flex !important;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    margin-top: 15px;
+    -webkit-user-select: none;
+    user-select: none;
+  }
+
+  #controls .mid-row {
+    display: flex;
+    gap: 12px;
+  }
+
+  #controls button {
+    width: 80px;
+    height: 80px;
+    border-radius: 16px;
+    border: none;
+    background: #6200ea;
+    color: white;
+    font-size: 32px;
+    box-shadow: 0 6px 10px rgba(0,0,0,0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: transform 0.1s, background 0.2s;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  #controls button:active,
+  #controls button.active {
+    background: #2962ff;
+    transform: scale(0.92);
+    box-shadow: 0 0 12px #82b1ff;
+  }
+}
+
+
+
