@@ -159,13 +159,29 @@ document.addEventListener("keyup", (e) => {
   if (btnId) document.getElementById(btnId).classList.remove("active");
 });
 
-// Hook buttons for clicks/touches
-document.getElementById("btn-up").addEventListener("touchstart",()=>movePlayer("up"));
-document.getElementById("btn-down").addEventListener("touchstart",()=>movePlayer("down"));
-document.getElementById("btn-left").addEventListener("touchstart",()=>movePlayer("left"));
-document.getElementById("btn-right").addEventListener("touchstart",()=>movePlayer("right"));
+let moved = false;
 
-document.getElementById("btn-up").addEventListener("click",()=>movePlayer("up"));
-document.getElementById("btn-down").addEventListener("click",()=>movePlayer("down"));
-document.getElementById("btn-left").addEventListener("click",()=>movePlayer("left"));
-document.getElementById("btn-right").addEventListener("click",()=>movePlayer("right"));
+const setupButton = (btnId, dir) => {
+  const btn = document.getElementById(btnId);
+
+  // Touch for mobile
+  btn.addEventListener("touchstart", (e) => {
+    e.preventDefault(); // prevent click after touch
+    if (!moved) {
+      movePlayer(dir);
+      moved = true;
+    }
+  });
+
+  btn.addEventListener("touchend", () => { moved = false; });
+
+  // Click for PC
+  btn.addEventListener("click", () => { movePlayer(dir); });
+};
+
+// Setup all buttons
+setupButton("btn-up", "up");
+setupButton("btn-down", "down");
+setupButton("btn-left", "left");
+setupButton("btn-right", "right");
+
