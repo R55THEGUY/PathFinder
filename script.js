@@ -117,3 +117,55 @@ document.addEventListener("keydown",(e)=>{
     }
   }
 });
+// --- Controls Setup ---
+function movePlayer(dir) {
+  if (!playerCell) return;
+  let row = parseInt(playerCell.dataset.row), col = parseInt(playerCell.dataset.col);
+  let newRow = row, newCol = col;
+
+  if (dir === "up") newRow--;
+  if (dir === "down") newRow++;
+  if (dir === "left") newCol--;
+  if (dir === "right") newCol++;
+
+  if (newRow >= 0 && newRow < gridSize && newCol >= 0 && newCol < gridSize) {
+    let nextCell = document.querySelector(`.cell[data-row='${newRow}'][data-col='${newCol}']`);
+    if (!nextCell.classList.contains("wall")) {
+      playerCell.classList.remove("player");
+      playerCell = nextCell;
+      playerCell.classList.add("player");
+      if (playerCell === goalCell) setTimeout(showPopup, 50);
+    }
+  }
+}
+
+// Map keyboard keys to button press highlight
+const keyMap = {
+  "ArrowUp": "btn-up", "w": "btn-up",
+  "ArrowDown": "btn-down", "s": "btn-down",
+  "ArrowLeft": "btn-left", "a": "btn-left",
+  "ArrowRight": "btn-right", "d": "btn-right"
+};
+document.addEventListener("keydown", (e) => {
+  let btnId = keyMap[e.key];
+  if (btnId) {
+    document.getElementById(btnId).classList.add("active");
+  }
+});
+
+
+document.addEventListener("keyup", (e) => {
+  let btnId = keyMap[e.key];
+  if (btnId) document.getElementById(btnId).classList.remove("active");
+});
+
+// Hook buttons for clicks/touches
+document.getElementById("btn-up").addEventListener("touchstart",()=>movePlayer("up"));
+document.getElementById("btn-down").addEventListener("touchstart",()=>movePlayer("down"));
+document.getElementById("btn-left").addEventListener("touchstart",()=>movePlayer("left"));
+document.getElementById("btn-right").addEventListener("touchstart",()=>movePlayer("right"));
+
+document.getElementById("btn-up").addEventListener("click",()=>movePlayer("up"));
+document.getElementById("btn-down").addEventListener("click",()=>movePlayer("down"));
+document.getElementById("btn-left").addEventListener("click",()=>movePlayer("left"));
+document.getElementById("btn-right").addEventListener("click",()=>movePlayer("right"));
